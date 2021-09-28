@@ -14,13 +14,14 @@
 * awk 逐行扫描输入(可以是文件或管道等), 按给定的模式查找出匹配的行，然后对这些行执行 awk 命令指定的操作
 * 与 sed 一样，awk 不会修改输入文件的内容。(可以使用重定向将 awk 的输出保存到文件中)
 
-
 ## awk 的简单用法
+
 ```sh
 awk [options] sed_script files
 ```
 
-**options**
+### options
+
 * -F: 指定输入记录字段的分隔符，默认使用环境变量IFS的值
 * -f: 从指定文件读取 awk_script
 * -v: 为 awk 设置变量
@@ -34,6 +35,7 @@ $ awk -F: '/^root/' /etc/passwd # 打印一root开头的行的第1列和第3列
 ```
 
 ## awk_script 语法
+
 ```sh
 awk 'BEGIN {actions}
     /pattern1/{actions}
@@ -41,6 +43,7 @@ awk 'BEGIN {actions}
     /patternN/{actions}
     END {actions}' input_file
 ```
+
 其中 `BEGIN` 和 `END` 都是大写字母。 `BEGIN{actions}`  和 `END{actions}` 是可选的
 
 ## awk 的执行过程
@@ -62,14 +65,17 @@ $ ifconfig | awk '/inet addr/{ print $2 }' | awk -F: 'BEGIN { print "begin..." }
 ```
 
 ## 模式匹配
+
 使用布尔表达式
-   1. 表达是中可以使用变量 (如字段变量 `$1`, `$2`) 
+
+   1. 表达是中可以使用变量 (如字段变量 `$1`, `$2`)
    2. 表达式中的运算符有
         * 关系运算符：< > <= >= == !=
         * 匹配运算符：~ !~
         x ~ /rexp/ 如果 x 匹配 /rexp/,则返回真
         x !~ /rexp/ 如果 x 不匹配 /rexp/,则返回真
         * 复合表达式：&& || !
+
 ```sh
 # 创建测试文件 test.txt,内容如下
 hello, world
@@ -85,7 +91,9 @@ $ awk '($1 > 20) && ($2~/^5/){print $0}' # 匹配第1列大于20且第2列以5�
 ```
 
 ## 字段分隔符、重定向和管道
+
 ### 字段分隔符
+
 `awk` 中的字段分隔符可以用 -F 选项指定，缺省是空格(实际上是由IFS变量决定的)
 
 ```sh
