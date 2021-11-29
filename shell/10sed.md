@@ -96,7 +96,7 @@ $ sed -f command.txt test.txt
   $
   ```
 
-* n: 显示匹配的行号
+* =: 显示匹配的行号
 
   ```sh
   $ sed -n '/north/=' test.txt # 试试包含 north 的行的行号
